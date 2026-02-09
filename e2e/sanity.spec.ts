@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage';
+import UserCredentials from '../helpers/UserCredentials';
+import ApplicationURL from '../helpers/ApplicationURL';
 
 test('sanity test', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
+  
   const loginPage = new LoginPage(page);
   await loginPage.loginToApplcation();
 
@@ -25,9 +27,12 @@ test('sanity test', async ({ page }) => {
   await page.locator('[data-test="logout-sidebar-link"]').click();
 });
 
-test('demo test', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
+
+
+test('demo test_2', async ({ page }) => {
+  
 
   const loginPage = new LoginPage(page);
-  await loginPage.loginToApplcation();
+  await.loginPage.validatePageURL(ApplicationURL.BASE_URL);
+  await loginPage.loginToApplcation(UserCredentials.LOCKED_OUT_USER, UserCredentials.CORRECT_PASSWORD,ApplicationURL.BASE_URL);
 });

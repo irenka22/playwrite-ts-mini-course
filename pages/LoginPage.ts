@@ -1,20 +1,38 @@
-import { Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
+import UserCredentials from "../helpers/UserCredentials";
+import ApplicationURL from "../helpers/ApplicationURL";
 
 export default class LoginPage {
 
-    protected page: Page;
-    constructor(page : Page) {
-
-        this.page = page;
-    }
+    usernameField: Locator;
+    passwordField: Locator;
+    loginButton: Locator;
 
 
-    public async loginToApplcation() {
 
-         await this.page.locator('[data-test="username"]').fill('standard_user');
-         await this.page.locator('[data-test="password"]').fill('secret_sauce');
-         await this.page.locator('[data-test="login-button"]').click();
-
+    constructor(protected page : Page) {
+        this.usernameField = this.page.locator('[data-test="username"]');
+        this.passwordField = this.page.locator('[data-test="password"]');
+        this.loginButton = this.page.locator('[data-test="login-button"]');
 
     }
+
+
+    public async loginToApplcation(username=UserCredentials.STANDARD_USER, 
+        password=UserCredentials.CORRECT_PASSWORD, 
+        url =ApplicationURL.BASE_URL) {
+
+         await this.page.goto(url);
+         await this.usernameField.fill(username);
+         await this.passwordField.fill(password);
+         await this.loginButton.click();
+
+
+    }
+
+    public async validatePageURL(url: string) {
+        await expect(this.page).toHaveURL(url);
+    }
+
+  
 }
