@@ -33,6 +33,5 @@ test('demo test_2', async ({ page }) => {
   
 
   const loginPage = new LoginPage(page);
-  await.loginPage.validatePageURL(ApplicationURL.BASE_URL);
-  await loginPage.loginToApplcation(UserCredentials.LOCKED_OUT_USER, UserCredentials.CORRECT_PASSWORD,ApplicationURL.BASE_URL);
+  await loginPage.loginToApplcation();
 });
