@@ -2,11 +2,12 @@ import { test, expect } from '@playwright/test';
 import LoginPage from '../pages/LoginPage';
 import UserCredentials from '../helpers/UserCredentials';
 import ApplicationURL from '../helpers/ApplicationURL';
+import ProductsPage from '../pages/ProductsPage';
 
 test('sanity test', async ({ page }) => {
   
   const loginPage = new LoginPage(page);
-  await loginPage.loginToApplcation();
+  await loginPage.loginToApplcation(); //pageoject model
 
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
   await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
@@ -34,4 +35,11 @@ test('demo test_2', async ({ page }) => {
 
   const loginPage = new LoginPage(page);
   await loginPage.loginToApplcation();
-});
+  const productsPage = new ProductsPage(page);
+  //productsPage.pageTitle = page.locator('');
+  //loginPage.loginButton = page.locator('');
+  await productsPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
+  await productsPage.validateTitle("Products");
+})
+
+
